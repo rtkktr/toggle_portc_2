@@ -1,0 +1,57 @@
+#include <mega64.h>
+#include <delay.h>
+
+//macros
+#define PORTC_DIRECTION DDRC
+#define PORTC_OUTPUT PORTC
+
+//global variables
+int delay = 100;
+int max_delay = 1000;
+int min_delay = 100;
+int speed = 100;
+int is_increasing = 1;
+
+//function prototypes
+void set_delay();
+
+//main function
+void main(void)
+{
+
+    //set PORTC
+    PORTC_DIRECTION=0xFF;
+    PORTC_OUTPUT=0x00;
+
+    //toggle PORTC
+    while (1)
+    {
+        //set delay (increase/decrease)
+        set_delay();
+        
+        //delay in program
+        delay_ms(delay);
+        
+        //toggle PORTC
+        PORTC = ~PORTC;
+    }
+}
+
+//functions
+//function that increase/decrease delay variable
+void set_delay()
+{
+
+    //max delay    
+    if (delay > max_delay)
+        is_increasing = 0;
+    //min delay
+    else if (delay < min_delay)
+        is_increasing = 1;
+    //increase speed
+    if (is_increasing)
+        delay += speed;
+    //decrease speed
+    else
+        delay -= speed;        
+}

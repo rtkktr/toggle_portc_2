@@ -1,0 +1,22 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+delay                                                                             R4,R5        2
+max_delay                                                                         R6,R7        2
+min_delay                                                                         R8,R9        2
+speed                                                                             R10,R11      2
+is_increasing                                                                     R12,R13      2
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+main                                                                              0x0007E     13
+set_delay                                                                         0x0008B     21

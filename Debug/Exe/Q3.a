@@ -1,0 +1,126 @@
+;#include <mega64.h>
+;PCODE: $00000000 VOL: 0
+	#ifndef __SLEEP_DEFINED__
+;PCODE: $00000001 VOL: 0
+	#define __SLEEP_DEFINED__
+;PCODE: $00000002 VOL: 0
+	.EQU __se_bit=0x20
+;PCODE: $00000003 VOL: 0
+	.EQU __sm_mask=0x1C
+;PCODE: $00000004 VOL: 0
+	.EQU __sm_powerdown=0x10
+;PCODE: $00000005 VOL: 0
+	.EQU __sm_powersave=0x18
+;PCODE: $00000006 VOL: 0
+	.EQU __sm_standby=0x14
+;PCODE: $00000007 VOL: 0
+	.EQU __sm_ext_standby=0x1C
+;PCODE: $00000008 VOL: 0
+	.EQU __sm_adc_noise_red=0x08
+;PCODE: $00000009 VOL: 0
+	.SET power_ctrl_reg=mcucr
+;PCODE: $0000000A VOL: 0
+	#endif
+;PCODE: $0000000B VOL: 0
+;PCODE: $0000000C VOL: 0
+;#include <delay.h>
+;
+;//macros
+;#define PORTC_DIRECTION DDRC
+;#define PORTC_OUTPUT PORTC
+;
+;//global variables
+;int delay = 100;
+;int max_delay = 1000;
+;int min_delay = 100;
+;int speed = 100;
+;int is_increasing = 1;
+;
+;//function prototypes
+;void set_delay();
+;
+;//main function
+;void main(void)
+; 0000 0014 {
+
+	.CSEG
+;PCODE: $0000000D VOL: 0
+; 0000 0015 
+; 0000 0016     //set PORTC
+; 0000 0017     PORTC_DIRECTION=0xFF;
+;PCODE: $0000000E VOL: 0
+;PCODE: $0000000F VOL: 0
+; 0000 0018     PORTC_OUTPUT=0x00;
+;PCODE: $00000010 VOL: 0
+;PCODE: $00000011 VOL: 0
+; 0000 0019 
+; 0000 001A     //toggle PORTC
+; 0000 001B     while (1)
+;PCODE: $00000012 VOL: 0
+; 0000 001C     {
+; 0000 001D         //set delay (increase/decrease)
+; 0000 001E         set_delay();
+;PCODE: $00000013 VOL: 0
+; 0000 001F 
+; 0000 0020         //delay in program
+; 0000 0021         delay_ms(delay);
+;PCODE: $00000014 VOL: 0
+;PCODE: $00000015 VOL: 0
+; 0000 0022 
+; 0000 0023         //toggle PORTC
+; 0000 0024         PORTC = ~PORTC;
+;PCODE: $00000016 VOL: 0
+;PCODE: $00000017 VOL: 0
+;PCODE: $00000018 VOL: 0
+; 0000 0025     }
+;PCODE: $00000019 VOL: 0
+;PCODE: $0000001A VOL: 0
+; 0000 0026 }
+;PCODE: $0000001B VOL: 0
+;PCODE: $0000001C VOL: 0
+;PCODE: $0000001D VOL: 0
+;
+;//functions
+;//function that increase/decrease delay variable
+;void set_delay()
+; 0000 002B {
+;PCODE: $0000001E VOL: 0
+;PCODE: $0000001F VOL: 0
+; 0000 002C 
+; 0000 002D     //max delay
+; 0000 002E     if (delay > max_delay)
+;PCODE: $00000020 VOL: 0
+;PCODE: $00000021 VOL: 0
+;PCODE: $00000022 VOL: 0
+; 0000 002F         is_increasing = 0;
+;PCODE: $00000023 VOL: 0
+; 0000 0030     //min delay
+; 0000 0031     else if (delay < min_delay)
+;PCODE: $00000024 VOL: 0
+;PCODE: $00000025 VOL: 0
+;PCODE: $00000026 VOL: 0
+;PCODE: $00000027 VOL: 0
+;PCODE: $00000028 VOL: 0
+; 0000 0032         is_increasing = 1;
+;PCODE: $00000029 VOL: 0
+;PCODE: $0000002A VOL: 0
+; 0000 0033     //increase speed
+; 0000 0034     if (is_increasing)
+;PCODE: $0000002B VOL: 0
+;PCODE: $0000002C VOL: 0
+;PCODE: $0000002D VOL: 0
+;PCODE: $0000002E VOL: 0
+; 0000 0035         delay += speed;
+;PCODE: $0000002F VOL: 0
+;PCODE: $00000030 VOL: 0
+; 0000 0036     //decrease speed
+; 0000 0037     else
+;PCODE: $00000031 VOL: 0
+;PCODE: $00000032 VOL: 0
+; 0000 0038         delay -= speed;
+;PCODE: $00000033 VOL: 0
+;PCODE: $00000034 VOL: 0
+; 0000 0039 }
+;PCODE: $00000035 VOL: 0
+;PCODE: $00000036 VOL: 0
+;PCODE: $00000037 VOL: 0
